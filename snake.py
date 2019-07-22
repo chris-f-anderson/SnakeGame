@@ -42,6 +42,20 @@ class Snake():
     def show(self):
         for body_part in self.body:
             body_part.show()
+    def set_direction_right(self):
+        if self.direction != "LEFT":
+            self.direction = "RIGHT"  
+    def set_direction_left(self):
+        if self.direction != "RIGHT":
+            self.direction = "LEFT" 
+    def set_direction_up(self):
+        if self.direction != "DOWN":
+            self.direction = "UP"
+    def set_direction_down(self):
+        if self.direction != "UP":
+            self.direction = "DOWN"
+
+                  
     def move(self):
         head_xcor = self.body[0].xcor
         head_ycor = self.body[0].ycor
@@ -88,13 +102,13 @@ def handle_events():
             snake.is_alive = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                snake.direction = "LEFT"
+                snake.set_direction_left()
             elif event.key == pygame.K_RIGHT:
-                snake.direction = "RIGHT"  
+                snake.set_direction_right()
             elif event.key == pygame.K_UP:
-                snake.direction = "UP"
+                snake.set_direction_up()
             elif event.key == pygame.K_DOWN:
-                snake.direction = "DOWN"        
+                snake.set_direction_down()      
 
 snake = Snake(BLOCK_SIZE * 5, BLOCK_SIZE * 5)
 apple = Apple()
@@ -127,7 +141,7 @@ while snake.is_alive:
 
     if snake.is_alive == False:
         FRAMES_PER_SECOND = 0.3
-        
+
     clock.tick(FRAMES_PER_SECOND)
 
 pygame.quit()
