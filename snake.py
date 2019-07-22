@@ -3,7 +3,7 @@
 import pygame
 import random
 
-
+#Game settings
 GAME_SIZE = 400
 BLOCK_SIZE = GAME_SIZE / 40
 SNAKE_COLOR = (0, 255, 0)
@@ -17,6 +17,7 @@ pygame.display.set_caption('SNAKE!')
 
 
 class Snake():
+    # this is the constructor
     def __init__(self, xcor, ycor):
         self.is_alive = True
         self.direction = "RIGHT"
