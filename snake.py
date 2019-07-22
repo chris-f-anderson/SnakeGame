@@ -35,6 +35,9 @@ class Snake():
         self.body = [Game_Object(xcor, ycor, SNAKE_COLOR),
                      Game_Object(xcor - BLOCK_SIZE, ycor, SNAKE_COLOR),
                      Game_Object(xcor - BLOCK_SIZE * 2, ycor, SNAKE_COLOR)]
+        self.previous_last_tail = self.body[len(self.body) - 1]             
+    def grow(self):
+        self.body.append(self.previous_last_tail)
     def show(self):
         for body_part in self.body:
             body_part.show()
@@ -52,7 +55,7 @@ class Snake():
                    
         
         self.body.insert(0, Game_Object(head_xcor, head_ycor, SNAKE_COLOR))
-        self.body.pop()
+        self.previous_last_tail = self.body.pop()
     def has_collided_with_wall(self):
         head = self.body[0]
         if head.xcor < 0 or head.ycor < 0 or head.xcor + BLOCK_SIZE > GAME_SIZE or head.ycor + BLOCK_SIZE > GAME_SIZE:
@@ -103,6 +106,7 @@ while snake.is_alive:
 
     if snake.has_eaten_apple(apple):
         snake.score += 1
+        snake.grow()
         apple = Apple()
 
 
@@ -110,7 +114,7 @@ while snake.is_alive:
     snake.show()
     apple.show()
     score_text = score_font.render(str(snake.score), False, (255, 255, 255))
-    game_display.blit.(score_text, (0,0))
+    game_display.blit(score_text, (0,0))
 
     pygame.display.flip()
     clock.tick(5)
