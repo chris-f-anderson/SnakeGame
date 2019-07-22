@@ -89,10 +89,22 @@ class Snake():
         return False
 
 class Apple():
-    def __init__(self):
+    def __init__(self, snake_body):
+        self.body = self.get_randomly_positioned_game_object()
+
+        while self.apple_is_on_snake(snake_body):
+            print("regenerating apple position...")
+            self.body = self.get_randomly_positioned_game_object()
+
+    def get_randomly_positioned_game_object(self):       
         xcor = random.randrange(0, GAME_SIZE / BLOCK_SIZE) * BLOCK_SIZE
-        ycor = random.randrange(0, GAME_SIZE / BLOCK_SIZE) * BLOCK_SIZE       
-        self.body = Game_Object(xcor, ycor, APPLE_COLOR)
+        ycor = random.randrange(0, GAME_SIZE / BLOCK_SIZE) * BLOCK_SIZE
+        return Game_Object(xcor, ycor, APPLE_COLOR)  
+    def apple_is_on_snake(self, snake_body):
+        for snake_part in snake_body:
+            if snake_part.xcor == self.body.xcor and snake_part.ycor == self.body.ycor:
+                return True
+        return False       
     def show(self):
         self.body.show()
 
@@ -111,7 +123,7 @@ def handle_events():
                 snake.set_direction_down()      
 
 snake = Snake(BLOCK_SIZE * 5, BLOCK_SIZE * 5)
-apple = Apple()
+apple = Apple(snake.body)
 
 # Main Game Loop
 while snake.is_alive:
@@ -128,7 +140,7 @@ while snake.is_alive:
     if snake.has_eaten_apple(apple):
         snake.score += 1
         snake.grow()
-        apple = Apple()
+        apple = Apple(snake.body)
 
 
     game_display.fill(BACKGROUND_COLOR)
