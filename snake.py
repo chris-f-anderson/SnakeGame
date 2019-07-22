@@ -4,7 +4,7 @@ import pygame
 import random
 
 #Game settings
-GAME_SIZE = 200
+GAME_SIZE = 400
 BLOCK_SIZE = GAME_SIZE / 40
 SNAKE_COLOR = (0, 255, 0)
 APPLE_COLOR = (255, 0, 0)
