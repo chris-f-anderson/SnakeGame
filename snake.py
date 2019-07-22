@@ -9,6 +9,7 @@ BLOCK_SIZE = GAME_SIZE / 40
 SNAKE_COLOR = (0, 255, 0)
 APPLE_COLOR = (255, 0, 0)
 BACKGROUND_COLOR = (0, 0, 0)
+FRAMES_PER_SECOND = 10
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -123,6 +124,10 @@ while snake.is_alive:
     game_display.blit(score_text, (0,0))
 
     pygame.display.flip()
-    clock.tick(5)
+
+    if snake.is_alive == False:
+        FRAMES_PER_SECOND = 0.3
+        
+    clock.tick(FRAMES_PER_SECOND)
 
 pygame.quit()
