@@ -9,7 +9,7 @@ BLOCK_SIZE = GAME_SIZE // 40
 SNAKE_COLOR = (0, 255, 0)
 APPLE_COLOR = (255, 0, 0)
 BACKGROUND_COLOR = (0, 0, 0)
-FRAMES_PER_SECOND = 10
+FRAMES_PER_SECOND = 5
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -121,7 +121,21 @@ def handle_events():
             elif event.key == pygame.K_UP:
                 snake.set_direction_up()
             elif event.key == pygame.K_DOWN:
-                snake.set_direction_down()      
+                snake.set_direction_down()
+            elif event.key == pygame.k_p:    
+                pause_game()
+                 
+def pauseGame():
+    game_is_Paused = True
+    while game_is_Paused:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                snake.is_alive = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    gameisPaused = False
+        pygame.display.update()
+        clock.tick(5)            
 
 snake = Snake(BLOCK_SIZE * 5, BLOCK_SIZE * 5)
 apple = Apple(snake.body)
